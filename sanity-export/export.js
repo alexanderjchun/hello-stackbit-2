@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const path = require('path');
 const sanityClient = require('@sanity/client');
 const exportDataset = require('@sanity/export');

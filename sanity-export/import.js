@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const path = require('path');
 const fs = require('fs');
 const sanityClient = require('@sanity/client');
@@ -15,10 +17,12 @@ const input = fs.createReadStream(path.join(__dirname, 'export.json'));
 sanityImport(input, {
     client: client,
     operation: 'createOrReplace' // `create`, `createOrReplace` or `createIfNotExists`
-}).then(({ numDocs, warnings }) => {
-    console.log('imported %d documents', numDocs);
-    console.log('warnings:', warnings);
-    // Note: There might be warnings! Check `warnings`
-}).catch(err => {
-    console.error('Import failed: %s', err.message);
-});
+})
+    .then(({ numDocs, warnings }) => {
+        console.log('imported %d documents', numDocs);
+        console.log('warnings:', warnings);
+        // Note: There might be warnings! Check `warnings`
+    })
+    .catch((err) => {
+        console.error('Import failed: %s', err.message);
+    });
